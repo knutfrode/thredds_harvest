@@ -3,13 +3,13 @@
 ################################################################
 
 # Where to store downloaded files
-download_folder = '/home/knutfd/software/thredds_harvest/data/'
+download_folder = '/vol/vvfelles/opendrift/forcing_data/'
 
 # If testing is True, only small spatial subsets are downloaded
 # If testing is False, whole domain is downloaded
 # Note: if changing to False, files in download folder
 #       should be manually deleted
-testing = True
+testing = False
 
 # Files older than this number of days are automatically deleted
 days_to_keep = 10
