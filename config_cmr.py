@@ -3,7 +3,8 @@
 ################################################################
 
 # Where to store downloaded files
-download_folder = '/home/knutfd/software/thredds_harvest/data_cmr/'
+download_folder = "C:\Prosjekt\METdownload\MET_download_folder"
+
 
 # If testing is True, only small spatial subsets are downloaded
 # If testing is False, whole domain is downloaded
