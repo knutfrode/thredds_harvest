@@ -15,6 +15,8 @@ testing = True
 # Files older than this number of days are automatically deleted
 days_to_keep = 5
 
+email_notification = None
+
 # Add # to start of name to disable a data source
 sources = {
     # NorKyst 800m ocean model

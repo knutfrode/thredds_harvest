@@ -14,12 +14,15 @@ testing = False
 # Files older than this number of days are automatically deleted
 days_to_keep = 10
 
+email_notification = 'knutfd@met.no'
+
 # Add # to start of name to disable a data source
 sources = {
     # NorKyst 800m ocean model
     'norkyst': {
-        'opt': ['-d depth,0,0',  # surface only
-                '-v u,v,temperature,projection_stere'],
+        'opt': [#'-d depth,0,0',  # surface only
+                '-d depth,0,1',
+                '-v u,v,temperature,salinity,h,projection_stere'],
         'subset': '-d X,0,10 -d Y,0,10',
         'hours': [0],
         'timestep': 1,

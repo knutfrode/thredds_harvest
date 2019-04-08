@@ -188,6 +188,7 @@ for name, opt in config.sources.items():
 print('=========================================================')
 print('Coverage of aggregate files:')
 try:
+    notify = ''
     from netCDF4 import Dataset, num2date
     import numpy as np
     for name, opt in config.sources.items():
@@ -219,11 +220,30 @@ try:
             warn += ', short history'
         else:
             warn += ''
-        print('%12s%11sUTC - %9sUTC  (%+d, %+d) %s' %
+        summary = ('%12s%11sUTC - %9sUTC  (%+d, %+d) %s' %
             (name, times[0].strftime('%d %b %H'),
              times[-1].strftime('%d %b %H'),
              minushours, plushours, warn))
+        print(summary)
+        if warn != '':
+            notify = notify + '\n' + summary
     print('=========================================================')
+    if notify != '' and config.email_notification is not None:
+        try:
+            import smtplib
+            FROM = 'ThreddsHarvest'
+            TO = [config.email_notification]
+            message = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (
+                FROM, ', '.join(TO),
+                'Thredds Harvest - short timeseries', notify)
+            server = smtplib.SMTP('localhost')
+            server.sendmail(FROM, TO, message)
+            server.quit()
+            print('Email sent to ' + TO[0])
+            print(message)
+        except Exception as ex:
+            print('Could not send mail report on missing data')
+            print(ex)
 except Exception as e:
     print(e)
     print('Install netCDF4 to report summary of downloaded data')
