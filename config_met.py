@@ -39,7 +39,6 @@ sources = {
             },
     # MyWaveWAM 4km wave model
     'mywavewam': {
-        #'opt': ['-v hs,tm2,thq,hs_swell,tm2_swell,thq_swell,hs_sea,tm2_sea,thq_sea,projection_3'],
         'opt': ['-v hs,tm2,projection_3'],
         'subset': '-d rlat,0,10 -d rlon,0,10',
         'hours': [6, 18],
@@ -48,7 +47,6 @@ sources = {
             },
     # MEPS atmospheric model
     'meps': {
-        #'opt': ['-v x_wind_10m,y_wind_10m,air_temperature_2m,air_pressure_at_sea_level,precipitation_amount_acc,cloud_area_fraction,fog_area_fraction,relative_humidity_2m,projection_lambert'],
         'opt': ['-v x_wind_10m,y_wind_10m,projection_lambert'],
         'subset': '-d x,0,10 -d y,0,10',
         'hours': [0, 6, 12, 18],
@@ -57,11 +55,18 @@ sources = {
             },
      # Arome Arctic atmospheric model
     'aromearctic': {
-        #'opt': ['-v x_wind_10m,y_wind_10m,air_temperature_2m,air_pressure_at_sea_level,precipitation_amount_acc,cloud_area_fraction,fog_area_fraction,relative_humidity_2m,projection_lambert'],
         'opt': ['-v x_wind_10m,y_wind_10m,projection_lambert'],
         'subset': '-d x,0,10 -d y,0,10',
         'hours': [0, 6, 12, 18],
         'timestep': 1,
         'url': 'http://thredds.met.no/thredds/dodsC/aromearcticlatest/arome_arctic_pp_2_5km_%Y%m%dT%HZ.nc',
+            },
+      # ECMWF wind
+    'ecmwf': {
+        'opt': ['-v x_wind_10m,y_wind_10m,projection_regular_ll'],
+        'subset': '-d x,0,10 -d y,0,10',
+        'hours': [0],
+        'timestep': 3,
+        'url': 'http://thredds.met.no/thredds/dodsC/ecmwf/atmo/ec_atmo_0_1deg_%Y%m%dT000000Z_3h.nc',
             }
         }

@@ -26,7 +26,7 @@ else:
     import urllib2
 
 # User specific settings are stored in this config file
-config_file = 'config_cmr'
+config_file = 'config_met'
 
 config = __import__(config_file)
 
@@ -77,15 +77,22 @@ for name, opt in config.sources.items():
             continue
         # Check if URL is available
         try:
-            if pv == 2:  # Python2
-                ret = urllib2.urlopen(url + '.das')
-            elif pv == 3:
-                ret = urllib.request.urlopen(url + '.das')
-            if ret.code != 200:
-                raise Exception('Open error')
+            try:
+                import requests
+                resp = requests.get(url + '.das')
+                if resp.status_code >= 400:
+                    raise Exception('Open error - requests')
+            except Exception as e:
+                if pv == 2:  # Python2
+                    ret = urllib2.urlopen(url + '.das')
+                elif pv == 3:
+                    ret = urllib.request.urlopen(url + '.das')
+                if ret.code != 200:
+                    raise Exception('Open error - urllib')
         except Exception as e:
             print('Not available: ' + url)
             continue
+        print(url)
         # Download from URL
         print('Downloading %s from %s...' %
                 (fullname, url))
@@ -186,6 +193,12 @@ for name, opt in config.sources.items():
 
 # Sum up the coverage of aggregates
 print('=========================================================')
+print('Aggregate files:')
+for name, opt in config.sources.items():
+    if name[0] != '#':
+        print(config.download_folder + name + '/'
+              + name + '_aggregate.nc')
+print('=========================================================')
 print('Coverage of aggregate files:')
 try:
     notify = ''
@@ -207,7 +220,7 @@ try:
         minushours = np.round((times[0]-datetime.now()).total_seconds()/3600)
         plushours = np.round((times[-1]-datetime.now()).total_seconds()/3600)
         expected_steps = (plushours-minushours+1)/timestep 
-        if expected_steps != len(times):
+        if expected_steps != len(times) and name != 'ecmwf':
             warn = 'Expected %d steps, files has %d steps' % (
                         expected_steps, len(times))
         else:
@@ -231,7 +244,7 @@ try:
     if notify != '' and config.email_notification is not None:
         try:
             import smtplib
-            FROM = 'ThreddsHarvest'
+            FROM = 'ThreddsHarvest@met.no'
             TO = [config.email_notification]
             message = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (
                 FROM, ', '.join(TO),
