@@ -70,6 +70,7 @@ for name, opt in config.sources.items():
     fnames, urls = get_names_and_urls(name, opt['url'])
     print(fnames, urls)
     for fname, url in zip(fnames, urls):
+        print('Checking:' + fname)
         folder = config.download_folder + '/' + name + '/'
         fullname = folder + fname
         if os.path.exists(fullname):
@@ -77,16 +78,21 @@ for name, opt in config.sources.items():
             continue
         # Check if URL is available
         try:
+            timeout = 3  # Timeout in seconds
             try:
+                print('Trying with requests library')
                 import requests
-                resp = requests.get(url + '.das')
+                resp = requests.get(url + '.das', timeout=timeout)
                 if resp.status_code >= 400:
                     raise Exception('Open error - requests')
             except Exception as e:
+                print('Requests did not work, trying with urlopen')
                 if pv == 2:  # Python2
-                    ret = urllib2.urlopen(url + '.das')
+                    ret = urllib2.urlopen(url + '.das',
+                                          timeout=timeout)
                 elif pv == 3:
-                    ret = urllib.request.urlopen(url + '.das')
+                    ret = urllib.request.urlopen(url + '.das',
+                                                 timeout=timeout)
                 if ret.code != 200:
                     raise Exception('Open error - urllib')
         except Exception as e:
