@@ -197,6 +197,12 @@ for name, opt in config.sources.items():
     nco.ncrcat(output=folder + name + '_aggregate.nc',
                input=infiles)
 
+for name, opt in config.sources.items():
+    tmpfiles = sorted(glob.glob(config.download_folder + name + '/*.nc*tmp'))
+    for tmpfile in tmpfiles:
+        print('Deleting tmp-file: ' + tmpfile)
+        os.remove(tmpfile)
+
 # Sum up the coverage of aggregates
 print('=========================================================')
 print('Aggregate files:')
