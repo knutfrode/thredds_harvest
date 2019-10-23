@@ -12,7 +12,7 @@ download_folder = '/vol/vvfelles/opendrift/forcing_data/'
 testing = False
 
 # Files older than this number of days are automatically deleted
-days_to_keep = 10
+days_to_keep = 7
 
 email_notification = 'knutfd@met.no'
 
@@ -67,6 +67,6 @@ sources = {
         'subset': '-d x,0,10 -d y,0,10',
         'hours': [0],
         'timestep': 3,
-        'url': 'http://thredds.met.no/thredds/dodsC/ecmwf/atmo/ec_atmo_0_1deg_%Y%m%dT000000Z_3h.nc',
+        'url': 'https://thredds.met.no/thredds/dodsC/ecmwf/atmo/ec_atmo_0_1deg_%Y%m%dT000000Z_3h.nc',
             }
         }

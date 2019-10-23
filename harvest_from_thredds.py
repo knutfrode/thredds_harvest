@@ -87,6 +87,9 @@ for name, opt in config.sources.items():
                     if resp.status_code >= 400:
                         raise Exception('Open error - requests')
                 except Exception as e:
+                    print(e)
+                    import traceback
+                    print(traceback.format_exc())
                     print('Requests did not work, trying with urlopen')
                     if pv == 2:  # Python2
                         ret = urllib2.urlopen(url + '.das',
@@ -139,7 +142,7 @@ for name, opt in config.sources.items():
             print(i, times[i])
             filename = files[i]
             if times[i] < datetime.now() - timedelta(hours=24*config.days_to_keep):
-                print('Deleting old input file:' + f)
+                print('Deleting old input file:' + filename)
                 os.remove(filename)
                 continue
             if i == len(times)-1:
@@ -201,6 +204,8 @@ for name, opt in config.sources.items():
     except Exception as e:
         print('Downloading failed:')
         print(e)
+        import traceback
+        print(traceback.format_exc())
 
 for name, opt in config.sources.items():
     tmpfiles = sorted(glob.glob(config.download_folder + name + '/*.nc*tmp'))
