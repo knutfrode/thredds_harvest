@@ -85,7 +85,8 @@ for name, opt in config.sources.items():
                     import requests
                     resp = requests.get(url + '.das', timeout=timeout)
                     if resp.status_code >= 400:
-                        raise Exception('Open error - requests')
+                        raise Exception('Requests: error code %s'
+                                        % resp.status_code)
                 except Exception as e:
                     print(e)
                     import traceback
@@ -98,7 +99,8 @@ for name, opt in config.sources.items():
                         ret = urllib.request.urlopen(url + '.das',
                                                      timeout=timeout)
                     if ret.code != 200:
-                        raise Exception('Open error - urllib')
+                        raise Exception('Urllib: error code %s'
+                                        % ret.code)
             except Exception as e:
                 print('Not available: ' + url)
                 continue

@@ -26,7 +26,7 @@ sources = {
         'subset': '-d X,0,10 -d Y,0,10',
         'hours': [0],
         'timestep': 1,
-        'url': 'http://thredds.met.no/thredds/dodsC/fou-hi/norkyst800m-1h/NorKyst-800m_ZDEPTHS_his.fc.%Y%m%d%H.nc',
+        'url': 'https://thredds.met.no/thredds/dodsC/fou-hi/norkyst800m-1h/NorKyst-800m_ZDEPTHS_his.fc.%Y%m%d%H.nc',
             },
     # Nordic 4km ocean model
     'nordic': {
@@ -35,7 +35,7 @@ sources = {
         'subset': '-d X,0,10 -d Y,0,10',
         'hours': [0],
         'timestep': 1,
-        'url': 'http://thredds.met.no/thredds/dodsC/fou-hi/nordic4km-zdepths1h/roms_nordic4_ZDEPTHS_hr.fc.%Y%m%d.nc'
+        'url': 'https://thredds.met.no/thredds/dodsC/fou-hi/nordic4km-zdepths1h/roms_nordic4_ZDEPTHS_hr.fc.%Y%m%d.nc'
             },
     # MyWaveWAM 4km wave model
     'mywavewam': {
@@ -43,7 +43,7 @@ sources = {
         'subset': '-d rlat,0,10 -d rlon,0,10',
         'hours': [6, 18],
         'timestep': 1,
-        'url': 'http://thredds.met.no/thredds/dodsC/fou-hi/mywavewam4/mywavewam4.fc.%Y%m%d%H.nc',
+        'url': 'https://thredds.met.no/thredds/dodsC/fou-hi/mywavewam4/mywavewam4.fc.%Y%m%d%H.nc',
             },
     # MEPS atmospheric model
     'meps': {
@@ -51,7 +51,7 @@ sources = {
         'subset': '-d x,0,10 -d y,0,10',
         'hours': [0, 6, 12, 18],
         'timestep': 1,
-        'url': 'http://thredds.met.no/thredds/dodsC/meps25files/meps_det_pp_2_5km_%Y%m%dT%HZ.nc',
+        'url': 'https://thredds.met.no/thredds/dodsC/meps25files/meps_det_pp_2_5km_%Y%m%dT%HZ.nc',
             },
      # Arome Arctic atmospheric model
     'aromearctic': {
@@ -59,6 +59,6 @@ sources = {
         'subset': '-d x,0,10 -d y,0,10',
         'hours': [0, 6, 12, 18],
         'timestep': 1,
-        'url': 'http://thredds.met.no/thredds/dodsC/aromearcticlatest/arome_arctic_pp_2_5km_%Y%m%dT%HZ.nc',
+        'url': 'https://thredds.met.no/thredds/dodsC/aromearcticlatest/arome_arctic_pp_2_5km_%Y%m%dT%HZ.nc',
             }
         }
