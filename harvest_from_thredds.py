@@ -198,8 +198,9 @@ def download(config):
             # Finally, concatenate all files in catfolder + latest-file
             infiles = sorted(glob.glob(catfolder + name + '*.nc')) + [files[-1]]
             print(infiles)
-            nco.ncrcat(output=folder + name + '_aggregate.nc',
-                       input=infiles)
+            nco.ncra(output=folder + name + '_aggregate.nc', input=infiles,
+                     options=['-Y ncrcat'])  # Since Windows lack link ncrcat -> ncra
+            # https://sourceforge.net/p/nco/discussion/9830/thread/e8b45a9cdb/
 
         except Exception as e:
             print('Downloading failed:')
