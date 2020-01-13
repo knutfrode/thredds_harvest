@@ -69,8 +69,8 @@ def download(config):
             print(fnames, urls)
             for fname, url in zip(fnames, urls):
                 print('Checking:' + fname)
-                folder = config['download_folder'] + '/' + name + '/'
-                fullname = folder + fname
+                folder = os.path.join(config['download_folder'], name)
+                fullname = os.path.join(folder, fname)
                 if os.path.exists(fullname):
                     print('%s exists, skipping' % fullname)
                     continue
@@ -127,8 +127,8 @@ def download(config):
                 continue
             # Remove overlapping times from downloaded files
             timestep = opt['timestep']
-            folder = config['download_folder'] + '/' + name + '/'
-            catfolder = folder + 'concatenate/'
+            folder = os.path.join(config['download_folder'], name)
+            catfolder = os.path.join(folder, 'concatenate')
             if not os.path.exists(folder):
                 os.mkdir(folder)
             if not os.path.exists(catfolder):
@@ -209,7 +209,7 @@ def download(config):
             print(traceback.format_exc())
 
     for name, opt in config['sources'].items():
-        tmpfiles = sorted(glob.glob(config['download_folder'] + name + '/*.nc*tmp'))
+        tmpfiles = sorted(glob.glob(os.path.join(config['download_folder'], name, '*.nc*tmp')))
         for tmpfile in tmpfiles:
             print('Deleting tmp-file: ' + tmpfile)
             os.remove(tmpfile)
@@ -219,8 +219,8 @@ def download(config):
     print('Aggregate files:')
     for name, opt in config['sources'].items():
         if name[0] != '#':
-            print(config['download_folder'] + name + '/'
-                  + name + '_aggregate.nc')
+            print(os.path.join(config['download_folder'],
+                  name, name + '_aggregate.nc'))
     print('=========================================================')
     print('Coverage of aggregate files:')
     try:
@@ -231,8 +231,8 @@ def download(config):
             if name[0] == '#':
                 continue 
             timestep = opt['timestep']
-            folder = config['download_folder'] + '/' + name + '/'
-            aggfile = folder + name + '_aggregate.nc'
+            folder = os.path.join(config['download_folder'], name)
+            aggfile = os.path.join(folder, name + '_aggregate.nc')
             try:
                 d = Dataset(aggfile)
             except:
