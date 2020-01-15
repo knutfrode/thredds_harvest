@@ -124,7 +124,10 @@ def download(config):
                     #sys.exit('stop')
 
             if new_download is False:
+                print('No download, hence no postprocessing')
                 continue
+            else:
+                print('Postprocessing downloaded data')
             # Remove overlapping times from downloaded files
             timestep = opt['timestep']
             folder = os.path.join(config['download_folder'], name)
@@ -133,7 +136,10 @@ def download(config):
                 os.mkdir(folder)
             if not os.path.exists(catfolder):
                 os.mkdir(catfolder)
-            files = sorted(glob.glob(folder + name + '_??????????.nc'))
+            print(folder, catfolder)
+            files = sorted(glob.glob(
+                os.path.join(folder, name + '_??????????.nc')))
+            print(files)
             if len(files)==0:
                 continue
             times = [datetime.strptime(f[-13:-3], '%Y%m%d%H') for f in files]
@@ -149,9 +155,10 @@ def download(config):
                     print('Using whole file')
                 else:
                     steps = (times[i+1]-times[i]).total_seconds()/(timestep*3600)
-                    catfile = catfolder + name + \
-                                times[i].strftime('_%Y%m%d%H') + \
-                                times[i+1].strftime('_%Y%m%d%H.nc')
+                    catfile = os.path.join(catfolder, name +
+                                times[i].strftime('_%Y%m%d%H') +
+                                times[i+1].strftime('_%Y%m%d%H.nc'))
+                    print(catfile)
                     if not os.path.exists(catfile):
                         print('Cutting...')
                         try:
@@ -171,9 +178,10 @@ def download(config):
                                 pass
 
             print('Maintainance')
-            catfiles = sorted(glob.glob(catfolder + name + '*.nc'))
+            catfiles = sorted(glob.glob(os.path.join(catfolder, name + '*.nc')))
+            print(catfiles, 'CATFILES')
             for i, f in enumerate(catfiles):
-                starttime = datetime.strptime(f[len(catfolder+name)+1:-14],
+                starttime = datetime.strptime(f[len(os.path.join(catfolder+name))+2:-14],
                                               '%Y%m%d%H')
                 endtime = datetime.strptime(f[-13:-3], '%Y%m%d%H')
                 if endtime < datetime.now() - timedelta(hours=24*config['days_to_keep']):
@@ -198,7 +206,8 @@ def download(config):
             # Finally, concatenate all files in catfolder + latest-file
             infiles = sorted(glob.glob(catfolder + name + '*.nc')) + [files[-1]]
             print(infiles)
-            nco.ncra(output=folder + name + '_aggregate.nc', input=infiles,
+            nco.ncra(output=os.path.join(folder, name + '_aggregate.nc'),
+                     input=infiles,
                      options=['-Y ncrcat'])  # Since Windows lack link ncrcat -> ncra
             # https://sourceforge.net/p/nco/discussion/9830/thread/e8b45a9cdb/
 
