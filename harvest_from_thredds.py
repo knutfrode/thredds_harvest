@@ -204,8 +204,9 @@ def download(config):
                 previous_starttime = starttime
 
             # Finally, concatenate all files in catfolder + latest-file
-            infiles = sorted(glob.glob(catfolder + name + '*.nc')) + [files[-1]]
-            print(infiles)
+            infiles = sorted(glob.glob(os.path.join(
+                catfolder, name + '*.nc'))) + [files[-1]]
+            print('Concatinating: ' + str(infiles))
             nco.ncra(output=os.path.join(folder, name + '_aggregate.nc'),
                      input=infiles,
                      options=['-Y ncrcat'])  # Since Windows lack link ncrcat -> ncra
