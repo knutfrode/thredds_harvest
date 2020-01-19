@@ -8,3 +8,4 @@ dependencies:
   - numpy
   - netcdf4
   - requests
+  - smtplib
