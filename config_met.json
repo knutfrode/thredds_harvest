@@ -30,7 +30,7 @@
             "subset": "-d x,0,10 -d y,0,10",
             "hours": [0, 6, 12, 18],
             "timestep": 1,
-            "url": "https://thredds.met.no/thredds/dodsC/mepsarchive/2020/%m/%d/meps_det_2_5km_%Y%m%dT%HZ.nc"},
+            "url": "https://thredds.met.no/thredds/dodsC/meps25epsarchive/2020/%m/%d/meps_det_2_5km_%Y%m%dT%HZ.nc"},
         "aromearctic": {
             "opt": ["-v x_wind_10m,y_wind_10m,projection_lambert"],
             "subset": "-d x,0,10 -d y,0,10",
