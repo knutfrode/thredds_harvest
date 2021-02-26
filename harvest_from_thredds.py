@@ -253,7 +253,7 @@ def download(config):
             minushours = np.round((times[0]-datetime.now()).total_seconds()/3600)
             plushours = np.round((times[-1]-datetime.now()).total_seconds()/3600)
             expected_steps = (plushours-minushours+1)/timestep 
-            if expected_steps != len(times) and name != 'ecmwf':
+            if expected_steps != len(times) and name != 'ecmwf' and False:  # NB: temporarily disabled for missing times
                 warn = 'Expected %d steps, files has %d steps' % (
                             expected_steps, len(times))
             else:
