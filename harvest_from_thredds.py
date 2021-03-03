@@ -99,7 +99,7 @@ def download(config):
                         download_from = local_time[-1]
                     newfile = False
                 else:
-                    download_from = datetime.now() - timedelta(days=days_to_keep)
+                    download_from = datetime.now() - timedelta(days=1)  # Only 1 day, otherwise too large file
                     newfile = True
 
                 # Find temporal subset to download
