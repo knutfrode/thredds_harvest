@@ -18,11 +18,6 @@
             "stride": 8,
             "timestep": 2,
             "forecast_hours": 240},
-	    "norkagg": {
-            "opt": ["-d X,0,10 -d Y,0,10 -d depth,0,1", "-v u,projection_stere"],
-            "timestep": 1,
-            "forecast_hours": 66,
-            "url": "https://thredds.met.no/thredds/dodsC/sea/norkyst800m/1h/aggregate_be"},
         "nordic": {
             "opt": ["-d depth,0,0",
                     "-v u,v,temperature,polar_stereographic"],
