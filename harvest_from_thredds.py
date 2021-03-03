@@ -143,23 +143,11 @@ def download(config):
                     # Check if URL is available
                     try:
                         timeout = 3  # Timeout in seconds
-                        try:
-                            print('Trying with requests library')
-                            import requests
-                            resp = requests.get(url + '.das', timeout=timeout)
-                            if resp.status_code >= 400:
-                                raise Exception('Requests: error code %s'
-                                                % resp.status_code)
-                        except Exception as e:
-                            print(e)
-                            import traceback
-                            print(traceback.format_exc())
-                            print('Requests did not work, trying with urlopen')
-                            ret = urllib.request.urlopen(url + '.das',
-                                                         timeout=timeout)
-                            if ret.code != 200:
-                                raise Exception('Urllib: error code %s'
-                                                % ret.code)
+                        ret = urllib.request.urlopen(url + '.das',
+                                                     timeout=timeout)
+                        if ret.code != 200:
+                            raise Exception('Urllib: error code %s'
+                                            % ret.code)
                     except Exception as e:
                         print('Not available: ' + url)
                         continue
