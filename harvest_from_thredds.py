@@ -17,6 +17,7 @@ import glob
 import json
 import sys
 import shutil
+import requests
 from datetime import datetime, timedelta
 from netCDF4 import Dataset, num2date
 import numpy as np
@@ -74,8 +75,6 @@ def download(config):
                 ###########################
                 # Download from aggregate
                 ###########################
-                print('Aggregate: ' + opt['url'])
-                print(agg_file)
                 if 'stride' in opt:
                     stride = opt['stride']
                 else:
@@ -128,30 +127,22 @@ def download(config):
                     new_download = True
  
             else:
-                print('No Aggregate: ' + opt['url'])
                 #################################
                 # Downloading from single URLS
                 #################################
                 fnames, urls = get_names_and_urls(name, opt)
-                print(fnames, urls)
                 for fname, url in zip(fnames, urls):
-                    print('Checking:' + fname)
                     fullname = os.path.join(folder, fname)
                     if os.path.exists(fullname):
                         print('%s exists, skipping' % fullname)
                         continue
+                    print('Checking: ' + url)
                     # Check if URL is available
-                    try:
-                        timeout = 3  # Timeout in seconds
-                        ret = urllib.request.urlopen(url + '.das',
-                                                     timeout=timeout)
-                        if ret.code != 200:
-                            raise Exception('Urllib: error code %s'
-                                            % ret.code)
-                    except Exception as e:
-                        print('Not available: ' + url)
+                    # Using requests, since .netrc file is needed
+                    resp = requests.get(url + '.das', timeout=3)
+                    if resp.status_code >= 400:
+                        print('Requests: error code %s' % resp.status_code)
                         continue
-                    print(url)
                     # Download from URL
                     print('Downloading %s from %s...' %
                             (fullname, url))
@@ -284,6 +275,7 @@ def download(config):
             os.remove(tmpfile)
 
     # Sum up the coverage of aggregates
+    print()
     print('=========================================================')
     print('Aggregate files:')
     for name, opt in config['sources'].items():
