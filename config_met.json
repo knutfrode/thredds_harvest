@@ -18,6 +18,12 @@
             "stride": 8,
             "timestep": 2,
             "forecast_hours": 240},
+         "mywavewam3": {
+            "opt": ["-d rlat,0,1500 -d rlon,1300,2466", "-v projection_stere,rlon,rlat,VSDX,VSDY,VHM0,VTPK"],
+            "url": "https://thredds.met.no/thredds/dodsC/cmems/mywavewam3km/dataset-wam-arctic-1hr3km-be.ncml",
+            "stride": 1,
+            "timestep": 1,
+            "forecast_hours": 240},
         "nordic": {
             "opt": ["-d depth,0,0",
                     "-v u,v,temperature,polar_stereographic"],
