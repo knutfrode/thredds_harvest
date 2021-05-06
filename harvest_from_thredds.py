@@ -126,6 +126,7 @@ def download(config):
                 nco.ncks(input=opt['url'], output=fullname, options=options)
                 if os.path.exists(fullname):
                     new_download = True
+                d.close()
  
             else:
                 #################################
@@ -258,7 +259,7 @@ def download(config):
                 print('Concatinating: ' + str(infiles))
                 nco.ncra(output=os.path.join(folder, name + '_aggregate.nc'),
                          input=infiles,
-                         options=['-Y ncrcat'])  # Since Windows lack link ncrcat -> ncra
+                         options=['-Y ncrcat', '-O'])  # Since Windows lack link ncrcat -> ncra
                 # https://sourceforge.net/p/nco/discussion/9830/thread/e8b45a9cdb/
             elif len(infiles) == 1:
                 shutil.copyfile(infiles[0], agg_file)
@@ -298,6 +299,7 @@ def download(config):
             print('Missing: ' + aggfile)
             continue
         times = d.variables['time']
+        d.close()
         times = num2date(times[:], times.units)
         minushours = np.round((times[0]-datetime.now()).total_seconds()/3600)
         plushours = np.round((times[-1]-datetime.now()).total_seconds()/3600)
