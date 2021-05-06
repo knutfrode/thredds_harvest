@@ -299,8 +299,8 @@ def download(config):
             print('Missing: ' + aggfile)
             continue
         times = d.variables['time']
-        d.close()
         times = num2date(times[:], times.units)
+        d.close()
         minushours = np.round((times[0]-datetime.now()).total_seconds()/3600)
         plushours = np.round((times[-1]-datetime.now()).total_seconds()/3600)
         expected_steps = (plushours-minushours+1)/timestep 
