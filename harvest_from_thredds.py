@@ -121,6 +121,7 @@ def download(config):
                 #    fullname = agg_file
                 options = opt['opt']
                 options.append(ts)
+                options.append("-7")  # netCDF4 CLASSIC to avoid file size limitation
                 options.append("--mk_rec_dmn time")  # Make time unlimited for aggregation
                 nco.ncks(input=opt['url'], output=fullname, options=options)
                 if os.path.exists(fullname):
