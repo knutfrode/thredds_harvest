@@ -1,0 +1,10 @@
+name: thredds_harvest
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.3
+  - nco=4.9.0
+  - pynco=1.0.0
+  - numpy=1.17.3
+  - netcdf4=1.5.3
+  - requests=2.22.0
