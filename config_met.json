@@ -24,19 +24,6 @@
             "stride": 1,
             "timestep": 1,
             "forecast_hours": 240},
-        "nordic": {
-            "opt": ["-d depth,0,0",
-                    "-v u,v,temperature,polar_stereographic"],
-            "subset": "-d X,0,10 -d Y,0,10",
-            "hours": [0],
-            "timestep": 1,
-            "url": "https://thredds.met.no/thredds/dodsC/fou-hi/nordic4km-zdepths1h/roms_nordic4_ZDEPTHS_hr.fc.%Y%m%d.nc"},
-        "mywavewam": {
-            "opt": ["-v hs,tm2,projection_3"],
-            "subset": "-d rlat,0,10 -d rlon,0,10",
-            "hours": [6, 18],
-            "timestep": 1,
-            "url": "https://thredds.met.no/thredds/dodsC/fou-hi/mywavewam4/mywavewam4.fc.%Y%m%d%H.nc"},
         "meps": {
             "opt": ["-v x_wind_10m,y_wind_10m,projection_lambert"],
             "subset": "-d x,0,10 -d y,0,10",
