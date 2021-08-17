@@ -7,3 +7,7 @@ A conda environment with necessary requirements can be installed with the comman
 ```conda env create -f conda_threddsharvest.yml ```
 
 If an email address is specified in config file, a mail server must be installed to be able to receive email notfication (```smtplib```) in case of missing data.
+
+Usage:
+
+```$ harvest_from_thredds.py <config_file.json>```
