@@ -6,5 +6,5 @@ dependencies:
   - nco
   - pynco
   - numpy
-  - netcdf4
+  - netcdf4<=1.6.1
   - requests
