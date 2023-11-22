@@ -62,6 +62,7 @@ def download(config):
         print('='*30)
         print(name)
         print('-'*30)
+        sys.stdout.flush()
         folder = os.path.join(config['download_folder'], name)
         if not os.path.exists(folder):
             os.mkdir(folder)
@@ -333,7 +334,7 @@ def download(config):
             message = """From: %s\nTo: %s\nSubject: %s\n\n%s""" % (
                 FROM, ', '.join(TO),
                 'Thredds Harvest - short timeseries', notify)
-            server = smtplib.SMTP('localhost')
+            server = smtplib.SMTP('smtp.met.no', port=25)
             server.sendmail(FROM, TO, message)
             server.quit()
             print('Email sent to ' + TO[0])
@@ -350,4 +351,5 @@ if __name__ == '__main__':
     with open(config_file) as f:
         config = json.load(f)
 
+    sys.stdout.flush()
     download(config)
